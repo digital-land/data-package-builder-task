@@ -1,0 +1,16 @@
+version: '3.8'
+
+services:
+  run-task:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: run-task
+    # can be used if there's an envionment file that needs loading
+    # environment:
+    #   - ENV_FILE=.env
+    # volumes:
+    #   - .:/usr/src/app
+    ports:
+      - "8000:8000" # Adjust this if your application needs to expose ports
+    # command: sh docker/entrypoint.sh all # Adjust this based on the entrypoint target you want to run
