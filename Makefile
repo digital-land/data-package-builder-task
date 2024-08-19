@@ -23,6 +23,9 @@ run-task ::
 
 test: test-unit test-acceptance
 
+lint:
+	@
+
 test-unit:
 	python -m pytest tests/unit
 
