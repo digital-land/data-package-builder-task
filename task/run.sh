@@ -20,8 +20,6 @@ curl -qfsL $SOURCE_URL/specification/main/specification/schema-field.csv > speci
 curl -qfsL $SOURCE_URL/specification/main/specification/datapackage.csv > specification/datapackage.csv
 curl -qfsL $SOURCE_URL/specification/main/specification/datapackage-dataset.csv > specification/datapackage-dataset.csv
 
-echo Downloading datasets
-./download-organisation-datasets.py
 
 echo Building data package
 digital-land organisation-create --dataset-dir var/cache/organisation-collection/dataset/ --output-path dataset/organisation.csv
@@ -33,4 +31,3 @@ curl -qfs https://files.planning.data.gov.uk/dataset/local-planning-authority.cs
 digital-land organisation-check --output-path dataset/organisation-check.csv
 
 echo Done
-ls -l dataset/

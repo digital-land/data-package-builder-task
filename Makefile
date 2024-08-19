@@ -9,7 +9,7 @@
 
 compile ::
 	# Don't build requirements.txt with piptools as we need to get digital-land from GH
-	# python -m piptools compile --output-file=requirements/requirements.txt requirements/requirements.in	
+	# python -m piptools compile --output-file=requirements/requirements.txt requirements/requirements.im
 	python -m piptools compile --output-file=requirements/test-requirements.txt requirements/test-requirements.in
 
 init ::
