@@ -13,7 +13,7 @@ compile ::
 	python -m piptools compile --output-file=requirements/test-requirements.txt requirements/test-requirements.in
 
 init ::
-	sudo apt install git
+	sudo apt install git bats
 	pip install --upgrade pip
 	pip install -r requirements/test-requirements.txt
 
@@ -30,5 +30,5 @@ test-unit:
 	python -m pytest tests/unit
 
 test-acceptance:
-	# run  bats test of the script
+	# run bats test of the script
 	bats tests/acceptance/test_run.bats
