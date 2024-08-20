@@ -43,6 +43,10 @@ then because the task needs to be ran from the task directory you need to change
 
 `cd task`
 
+set the name of the package you want to build to an Environment variables
+
+`export DATA_PACKAGE_NAME=organisation`
+
 then the task can be ran using the entrypoint scrript
 
 `./run.sh`

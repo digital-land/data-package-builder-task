@@ -1,4 +1,21 @@
+set -e
+
 export SOURCE_URL='https://raw.githubusercontent.com/digital-land/'
+export DATASET_DIR=dataset
+export CACHE_DIR=var/cache
+
+if [ -z "$DATA_PACKAGE_NAME" ]; then
+    echo DATA_PACKAGE_NAME not set
+    exit 1
+fi
+
+if [ "$DATA_PACKAGE_NAME" != 'organisation' ]; then
+    echo Unspoorted package.
+    exit 1
+fi
+
+TODAY=$(date +%Y-%m-%d)
+echo "Running package builder for $DATA_PACKAGE_NAME on $TODAY"
 
 echo Downloading specification
 mkdir -p specification/
@@ -22,12 +39,23 @@ curl -qfsL $SOURCE_URL/specification/main/specification/datapackage-dataset.csv 
 
 
 echo Building data package
-digital-land organisation-create --dataset-dir var/cache/organisation-collection/dataset/ --output-path dataset/organisation.csv
+digital-land organisation-create \
+    --cache-dir var/cache/organisation-collection/dataset/ \
+    --download-url 'https://files.planning.data.gov.uk/organisation-collection/dataset' \
+    --output-path $DATASET_DIR/organisation.csv
 
 echo Checking data package
-export CACHE_DIR=var/cache
 mkdir -p $CACHE_DIR
 curl -qfs https://files.planning.data.gov.uk/dataset/local-planning-authority.csv > $CACHE_DIR/local-planning-authority.csv
-digital-land organisation-check --output-path dataset/organisation-check.csv
+digital-land organisation-check --output-path $DATASET_DIR/organisation-check.csv
+
+if [ -n "$DATA_PACKAGE_BUCKET_NAME" ]; then
+    echo Pushing package to S3
+    aws s3 sync $DATASET_DIR s3://$DATA_PACKAGE_BUCKET_NAME/$DATA_PACKAGE_NAME/$DATASET_DIR --no-progress
+else
+    echo Not pusing to S3 as DATA_PACKAGE_BUCKET_NAME is not set
+fi
+
+ls -l dataset || true
 
 echo Done

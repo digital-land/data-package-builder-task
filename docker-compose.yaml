@@ -7,7 +7,8 @@ services:
       dockerfile: Dockerfile
     container_name: run-task
     # can be used if there's an envionment file that needs loading
-    # environment:
+    environment:
+      DATA_PACKAGE_NAME: organisation
     #   - ENV_FILE=.env
     # volumes:
     #   - .:/usr/src/app
