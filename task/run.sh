@@ -37,17 +37,29 @@ curl -qfsL $SOURCE_URL/specification/main/specification/schema-field.csv > speci
 curl -qfsL $SOURCE_URL/specification/main/specification/datapackage.csv > specification/datapackage.csv
 curl -qfsL $SOURCE_URL/specification/main/specification/datapackage-dataset.csv > specification/datapackage-dataset.csv
 
-
 echo Building data package
-digital-land organisation-create \
-    --cache-dir var/cache/organisation-collection/dataset/ \
-    --download-url 'https://files.planning.data.gov.uk/organisation-collection/dataset' \
-    --output-path $DATASET_DIR/organisation.csv
+mkdir -p $CACHE_DIR
+
+if [ -n "$ENVIRONMENT" ]; then
+    echo Building organisation data package - using collection files from $ENVIRONMENT S3
+	aws s3 sync s3://$ENVIRONMENT-collection-data/organisation-collection/dataset $DATASET_DIR --no-progress
+    digital-land organisation-create \
+        --datset-dir $DATASET_DIR \
+        --output-path $DATASET_DIR/organisation.csv
+else
+    echo Building organisation data package - using collection files from CDN
+    digital-land organisation-create \
+        --cache-dir $CACHE_DIR/organisation-collection/dataset/ \
+        --download-url 'https://files.planning.data.gov.uk/organisation-collection/dataset' \
+        --output-path $DATASET_DIR/organisation.csv
+fi
 
 echo Checking data package
-mkdir -p $CACHE_DIR
 curl -qfs https://files.planning.data.gov.uk/dataset/local-planning-authority.csv > $CACHE_DIR/local-planning-authority.csv
 digital-land organisation-check --output-path $DATASET_DIR/organisation-check.csv
+
+
+ls -l dataset || true
 
 if [ -n "$DATA_PACKAGE_BUCKET_NAME" ]; then
     echo Pushing package to S3
@@ -55,7 +67,3 @@ if [ -n "$DATA_PACKAGE_BUCKET_NAME" ]; then
 else
     echo Not pusing to S3 as DATA_PACKAGE_BUCKET_NAME is not set
 fi
-
-ls -l dataset || true
-
-echo Done
