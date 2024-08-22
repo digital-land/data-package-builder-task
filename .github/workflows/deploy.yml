@@ -80,6 +80,8 @@ jobs:
           aws-region: eu-west-2
 
       - uses: aws-actions/amazon-ecr-login@v1
+        with:
+          registry-type: public
 
       - run: docker pull $DOCKER_REPO:latest || echo "no current latest image"
 
