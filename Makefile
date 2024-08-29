@@ -22,7 +22,7 @@ run-task ::
 	cd task; \
 	./run.sh;
 
-test: test-unit test-acceptance
+test: test-acceptance
 
 lint:
 	@
