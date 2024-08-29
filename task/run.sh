@@ -9,10 +9,22 @@ if [ -z "$DATA_PACKAGE_NAME" ]; then
     exit 1
 fi
 
+if [ -z "$READ_S3_BUCKET" ]; then
+    echo READ_S3_BUCKET not set so files will be downloaded from the production files cdn
+fi
+
+if [ -z "$WRITE_S3_BUCKET" ]; then
+    echo WRITE_S3_BUCKET not set so files will not be uploaded to an S3 Bucket
+fi
+
+# TODO should be embedded into package creation code
 if [ "$DATA_PACKAGE_NAME" != 'organisation' ]; then
     echo Unspoorted package.
     exit 1
 fi
+
+# update digital-land-python
+pip install -r ./requirements.txt
 
 TODAY=$(date +%Y-%m-%d)
 echo "Running package builder for $DATA_PACKAGE_NAME on $TODAY"
@@ -40,7 +52,7 @@ curl -qfsL $SOURCE_URL/specification/main/specification/datapackage-dataset.csv 
 echo Building data package
 mkdir -p $CACHE_DIR
 
-if [ -n "$ENVIRONMENT" ]; then
+if [ -n "$READ_S3_BUCKET" ]; then
     echo Building organisation data package - using collection files from $ENVIRONMENT S3
 	aws s3 sync s3://$ENVIRONMENT-collection-data/organisation-collection/dataset $DATASET_DIR --no-progress
     digital-land organisation-create \
@@ -61,9 +73,8 @@ digital-land organisation-check --output-path $DATASET_DIR/organisation-check.cs
 
 ls -l dataset || true
 
-if [ -n "$DATA_PACKAGE_BUCKET_NAME" ]; then
+# TODO where to permenantly store data packages, also this uploads all the filels in datasets 
+if [ -n "$WRITE_S3_BUCKET" ]; then
     echo Pushing package to S3
-    aws s3 sync $DATASET_DIR s3://$DATA_PACKAGE_BUCKET_NAME/$DATA_PACKAGE_NAME/$DATASET_DIR --no-progress
-else
-    echo Not pusing to S3 as DATA_PACKAGE_BUCKET_NAME is not set
+    aws s3 sync $DATASET_DIR s3://$WRITE_S3_BUCKET/$DATA_PACKAGE_NAME/$DATASET_DIR --no-progress
 fi

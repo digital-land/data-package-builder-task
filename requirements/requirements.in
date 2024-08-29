@@ -1,1 +1,2 @@
-click
+click 
+-r ../task/requirements.txt

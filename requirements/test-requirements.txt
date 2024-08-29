@@ -4,17 +4,322 @@
 #
 #    pip-compile --output-file=requirements/test-requirements.txt requirements/test-requirements.in
 #
-click==8.1.7
+-e git+https://github.com/digital-land/digital-land-python.git#egg=digital-land
     # via -r requirements/requirements.txt
+aiofiles==24.1.0
+    # via
+    #   -r requirements/requirements.txt
+    #   datasette
+annotated-types==0.7.0
+    # via
+    #   -r requirements/requirements.txt
+    #   pydantic
+anyio==4.4.0
+    # via
+    #   -r requirements/requirements.txt
+    #   httpx
+asgi-csrf==0.10
+    # via
+    #   -r requirements/requirements.txt
+    #   datasette
+asgiref==3.8.1
+    # via
+    #   -r requirements/requirements.txt
+    #   datasette
+canonicaljson==2.0.0
+    # via
+    #   -r requirements/requirements.txt
+    #   digital-land
+cchardet==2.1.7
+    # via
+    #   -r requirements/requirements.txt
+    #   digital-land
+certifi==2024.7.4
+    # via
+    #   -r requirements/requirements.txt
+    #   httpcore
+    #   httpx
+    #   pyproj
+    #   requests
+charset-normalizer==3.3.2
+    # via
+    #   -r requirements/requirements.txt
+    #   requests
+click==8.1.7
+    # via
+    #   -r requirements/requirements.txt
+    #   click-default-group
+    #   dask
+    #   datasette
+    #   digital-land
+    #   uvicorn
+click-default-group==1.2.4
+    # via
+    #   -r requirements/requirements.txt
+    #   datasette
+cloudpickle==3.0.0
+    # via
+    #   -r requirements/requirements.txt
+    #   dask
+dask==2023.5.0
+    # via
+    #   -r requirements/requirements.txt
+    #   digital-land
+dataclasses-json==0.6.7
+    # via
+    #   -r requirements/requirements.txt
+    #   digital-land
+datasette==0.64.8
+    # via
+    #   -r requirements/requirements.txt
+    #   digital-land
+duckdb==1.0.0
+    # via
+    #   -r requirements/requirements.txt
+    #   digital-land
+esridump==1.13.0
+    # via
+    #   -r requirements/requirements.txt
+    #   digital-land
+et-xmlfile==1.1.0
+    # via
+    #   -r requirements/requirements.txt
+    #   openpyxl
 exceptiongroup==1.2.2
-    # via pytest
+    # via
+    #   -r requirements/requirements.txt
+    #   anyio
+    #   pytest
+fsspec==2024.6.1
+    # via
+    #   -r requirements/requirements.txt
+    #   dask
+geojson==3.1.0
+    # via
+    #   -r requirements/requirements.txt
+    #   digital-land
+h11==0.14.0
+    # via
+    #   -r requirements/requirements.txt
+    #   httpcore
+    #   uvicorn
+httpcore==1.0.5
+    # via
+    #   -r requirements/requirements.txt
+    #   httpx
+httpx==0.27.2
+    # via
+    #   -r requirements/requirements.txt
+    #   datasette
+hupper==1.12.1
+    # via
+    #   -r requirements/requirements.txt
+    #   datasette
+idna==3.8
+    # via
+    #   -r requirements/requirements.txt
+    #   anyio
+    #   httpx
+    #   requests
+importlib-metadata==8.4.0
+    # via
+    #   -r requirements/requirements.txt
+    #   dask
 iniconfig==2.0.0
     # via pytest
+isodate==0.6.1
+    # via
+    #   -r requirements/requirements.txt
+    #   rdflib
+itsdangerous==2.2.0
+    # via
+    #   -r requirements/requirements.txt
+    #   asgi-csrf
+    #   datasette
+janus==1.0.0
+    # via
+    #   -r requirements/requirements.txt
+    #   datasette
+jinja2==3.1.4
+    # via
+    #   -r requirements/requirements.txt
+    #   datasette
+json-stream==2.3.2
+    # via
+    #   -r requirements/requirements.txt
+    #   digital-land
+json-stream-rs-tokenizer==0.4.26
+    # via
+    #   -r requirements/requirements.txt
+    #   json-stream
+locket==1.0.0
+    # via
+    #   -r requirements/requirements.txt
+    #   partd
+markupsafe==2.1.5
+    # via
+    #   -r requirements/requirements.txt
+    #   jinja2
+marshmallow==3.22.0
+    # via
+    #   -r requirements/requirements.txt
+    #   dataclasses-json
+mergedeep==1.3.4
+    # via
+    #   -r requirements/requirements.txt
+    #   datasette
+mypy-extensions==1.0.0
+    # via
+    #   -r requirements/requirements.txt
+    #   typing-inspect
+numpy==1.24.4
+    # via
+    #   -r requirements/requirements.txt
+    #   digital-land
+    #   pandas
+    #   shapely
+openpyxl==3.1.5
+    # via
+    #   -r requirements/requirements.txt
+    #   digital-land
 packaging==24.1
-    # via pytest
+    # via
+    #   -r requirements/requirements.txt
+    #   dask
+    #   marshmallow
+    #   pytest
+pandas==2.0.3
+    # via
+    #   -r requirements/requirements.txt
+    #   digital-land
+partd==1.4.1
+    # via
+    #   -r requirements/requirements.txt
+    #   dask
+pint==0.21.1
+    # via
+    #   -r requirements/requirements.txt
+    #   datasette
 pluggy==1.5.0
-    # via pytest
+    # via
+    #   -r requirements/requirements.txt
+    #   datasette
+    #   pytest
+pydantic==2.8.2
+    # via
+    #   -r requirements/requirements.txt
+    #   digital-land
+pydantic-core==2.20.1
+    # via
+    #   -r requirements/requirements.txt
+    #   pydantic
+pyparsing==3.1.4
+    # via
+    #   -r requirements/requirements.txt
+    #   rdflib
+pyproj==3.5.0
+    # via
+    #   -r requirements/requirements.txt
+    #   digital-land
 pytest==8.3.2
     # via -r requirements/test-requirements.in
+python-dateutil==2.9.0.post0
+    # via
+    #   -r requirements/requirements.txt
+    #   pandas
+python-multipart==0.0.9
+    # via
+    #   -r requirements/requirements.txt
+    #   asgi-csrf
+pytz==2024.1
+    # via
+    #   -r requirements/requirements.txt
+    #   pandas
+pyyaml==6.0.2
+    # via
+    #   -r requirements/requirements.txt
+    #   dask
+    #   datasette
+    #   digital-land
+rdflib==7.0.0
+    # via
+    #   -r requirements/requirements.txt
+    #   sparqlwrapper
+requests==2.32.3
+    # via
+    #   -r requirements/requirements.txt
+    #   digital-land
+    #   esridump
+shapely==2.0.2
+    # via
+    #   -r requirements/requirements.txt
+    #   digital-land
+six==1.16.0
+    # via
+    #   -r requirements/requirements.txt
+    #   esridump
+    #   isodate
+    #   python-dateutil
+sniffio==1.3.1
+    # via
+    #   -r requirements/requirements.txt
+    #   anyio
+    #   httpx
+sparqlwrapper==2.0.0
+    # via
+    #   -r requirements/requirements.txt
+    #   digital-land
+spatialite==0.0.3
+    # via
+    #   -r requirements/requirements.txt
+    #   digital-land
 tomli==2.0.1
     # via pytest
+toolz==0.12.1
+    # via
+    #   -r requirements/requirements.txt
+    #   dask
+    #   partd
+typing-extensions==4.12.2
+    # via
+    #   -r requirements/requirements.txt
+    #   annotated-types
+    #   anyio
+    #   asgiref
+    #   janus
+    #   pydantic
+    #   pydantic-core
+    #   typing-inspect
+    #   uvicorn
+typing-inspect==0.9.0
+    # via
+    #   -r requirements/requirements.txt
+    #   dataclasses-json
+tzdata==2024.1
+    # via
+    #   -r requirements/requirements.txt
+    #   pandas
+urllib3==2.2.2
+    # via
+    #   -r requirements/requirements.txt
+    #   requests
+uvicorn==0.30.6
+    # via
+    #   -r requirements/requirements.txt
+    #   datasette
+validators==0.33.0
+    # via
+    #   -r requirements/requirements.txt
+    #   digital-land
+xlrd==1.2.0
+    # via
+    #   -r requirements/requirements.txt
+    #   digital-land
+zipp==3.20.1
+    # via
+    #   -r requirements/requirements.txt
+    #   importlib-metadata
+
+# The following packages are considered to be unsafe in a requirements file:
+# pip
+# setuptools
