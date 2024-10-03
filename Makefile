@@ -13,7 +13,7 @@ compile ::
 	python -m piptools compile --output-file=requirements/test-requirements.txt requirements/test-requirements.in
 
 init ::
-	# sudo apt install git bats
+	bats -v || sudo apt install bats -y
 	pip install --upgrade pip
 	pip install -r requirements/test-requirements.txt
 	pip install -r requirements/requirements.txt
