@@ -4,7 +4,7 @@ FROM python:3.8-slim-bookworm
 WORKDIR /
 RUN apt-get update
 RUN apt-get upgrade -y
-RUN apt-get install curl git -y
+RUN apt-get install curl git bats -y
 
 COPY requirements/requirements.txt /requirements.txt
 RUN pip install --upgrade pip
