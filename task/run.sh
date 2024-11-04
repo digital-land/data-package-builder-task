@@ -53,8 +53,8 @@ echo Building data package
 mkdir -p $CACHE_DIR
 
 if [ -n "$READ_S3_BUCKET" ]; then
-    echo Building organisation data package - using collection files from $ENVIRONMENT S3
-	aws s3 sync s3://$ENVIRONMENT-collection-data/organisation-collection/dataset $DATASET_DIR --no-progress
+    echo Building organisation data package - using collection files from S3 bucket $READ_S3_BUCKET
+    aws s3 sync s3://$READ_S3_BUCKET/$DATA_PACKAGE_NAME/$DATASET_DIR $DATASET_DIR --no-progress
     digital-land organisation-create \
         --datset-dir $DATASET_DIR \
         --output-path $DATASET_DIR/organisation.csv
@@ -70,11 +70,10 @@ echo Checking data package
 curl -qfs https://files.planning.data.gov.uk/dataset/local-planning-authority.csv > $CACHE_DIR/local-planning-authority.csv
 digital-land organisation-check --output-path $DATASET_DIR/organisation-check.csv
 
-
-ls -l dataset || true
+ls -l $DATASET_DIR || true
 
 # TODO where to permenantly store data packages, also this uploads all the filels in datasets 
 if [ -n "$WRITE_S3_BUCKET" ]; then
-    echo Pushing package to S3
+    echo Pushing package to S3 bucket $WRITE_S3_BUCKET
     aws s3 sync $DATASET_DIR s3://$WRITE_S3_BUCKET/$DATA_PACKAGE_NAME/$DATASET_DIR --no-progress
 fi
