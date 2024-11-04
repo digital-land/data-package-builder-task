@@ -56,7 +56,7 @@ if [ -n "$READ_S3_BUCKET" ]; then
     echo Building organisation data package - using collection files from S3 bucket $READ_S3_BUCKET
     aws s3 sync s3://$READ_S3_BUCKET/$DATA_PACKAGE_NAME/$DATASET_DIR $DATASET_DIR --no-progress
     digital-land organisation-create \
-        --datset-dir $DATASET_DIR \
+        --dataset-dir $DATASET_DIR \
         --output-path $DATASET_DIR/organisation.csv
 else
     echo Building organisation data package - using collection files from CDN
