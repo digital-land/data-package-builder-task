@@ -83,7 +83,7 @@ jobs:
         with:
           registry-type: public
 
-      - run: docker pull $DOCKER_REPO:latest || echo "no current latest image"
+      - run: docker pull $DOCKER_REPO:${GITHUB_REF_NAME} || echo "no current latest image"
 
       - run: docker build -t $DOCKER_REPO:${{ steps.vars.outputs.sha_short }} .
 
