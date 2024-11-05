@@ -87,8 +87,8 @@ jobs:
 
       - run: docker build -t $DOCKER_REPO:${{ steps.vars.outputs.sha_short }} .
 
-      - run: docker tag $DOCKER_REPO:${{ steps.vars.outputs.sha_short }} $DOCKER_REPO:latest
+      - run: docker tag $DOCKER_REPO:${{ steps.vars.outputs.sha_short }} $DOCKER_REPO:${GITHUB_REF_NAME}
 
       - run: docker push $DOCKER_REPO:${{ steps.vars.outputs.sha_short }}
 
-      - run: docker push $DOCKER_REPO:latest
+      - run: docker push $DOCKER_REPO:${GITHUB_REF_NAME}
