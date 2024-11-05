@@ -52,16 +52,20 @@ curl -qfsL $SOURCE_URL/specification/main/specification/datapackage-dataset.csv 
 echo Building data package
 mkdir -p $CACHE_DIR
 
+export COLLECTION_NAME=$DATA_PACKAGE_NAME-collection
+export COLLECTION_DATASET_DIR=$CACHE_DIR/$COLLECTION_NAME/dataset/
+
 if [ -n "$READ_S3_BUCKET" ]; then
     echo Building organisation data package - using collection files from S3 bucket $READ_S3_BUCKET
-    aws s3 sync s3://$READ_S3_BUCKET/$DATA_PACKAGE_NAME/$DATASET_DIR $DATASET_DIR --no-progress
+    mkdir -p $COLLECTION_DATASET_DIR
+    aws s3 sync s3://$READ_S3_BUCKET/$COLLECTION_NAME/$DATASET_DIR $COLLECTION_DATASET_DIR --no-progress
     digital-land organisation-create \
-        --dataset-dir $DATASET_DIR \
+        --dataset-dir $COLLECTION_DATASET_DIR \
         --output-path $DATASET_DIR/organisation.csv
 else
     echo Building organisation data package - using collection files from CDN
     digital-land organisation-create \
-        --cache-dir $CACHE_DIR/organisation-collection/dataset/ \
+        --cache-dir $COLLECTION_DATASET_DIR \
         --download-url 'https://files.planning.data.gov.uk/organisation-collection/dataset' \
         --output-path $DATASET_DIR/organisation.csv
 fi
