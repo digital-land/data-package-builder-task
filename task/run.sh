@@ -1,3 +1,5 @@
+#! /bin/bash
+
 set -e
 
 export SOURCE_URL='https://raw.githubusercontent.com/digital-land/'

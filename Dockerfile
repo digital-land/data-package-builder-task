@@ -4,17 +4,23 @@ FROM python:3.8-slim-bookworm
 WORKDIR /
 RUN apt-get update
 RUN apt-get upgrade -y
-RUN apt-get install curl git bats -y
+RUN apt-get install -y bats curl git make sqlite3 sudo gdal-bin time libsqlite3-mod-spatialite
 
+RUN useradd --shell /bin/bash --home-dir /task --create-home task
+RUN adduser task sudo
+RUN echo '%sudo ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers
+
+COPY task /task
+RUN chown task:task -R /task
+USER task
+WORKDIR /task
+ENV PATH="${PATH}:/task/.local/bin"
+RUN pip install pyproj
+RUN pip install csvkit
 RUN pip install awscli
-COPY requirements/requirements.txt /requirements.txt
+# COPY requirements/requirements.txt /requirements.txt
 RUN pip install --upgrade pip
 RUN pip install --upgrade -r requirements.txt
 
-COPY task /task
-# USER task
-# RUN chown task:task -R /task
+ENTRYPOINT ["./run.sh"]
 
-WORKDIR /task
-
-ENTRYPOINT ["sh","./run.sh"]
