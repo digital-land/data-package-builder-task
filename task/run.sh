@@ -2,6 +2,9 @@
 
 set -e
 
+TODAY=$(date +%Y-%m-%d)
+echo "Running package builder for $DATA_PACKAGE_NAME on $TODAY"
+
 export SOURCE_URL='https://raw.githubusercontent.com/digital-land/'
 export DATASET_DIR=dataset
 export CACHE_DIR=var/cache
@@ -25,11 +28,13 @@ if [ "$DATA_PACKAGE_NAME" != 'organisation' ]; then
     exit 1
 fi
 
+# Setup
+pyproj sync --file uk_os_OSTN15_NTv2_OSGBtoETRS.tif -v
+dpkg-query -W libsqlite3-mod-spatialite >/dev/null 2>&1 || sudo apt-get install libsqlite3-mod-spatialite -y
+dpkg-query -W -f="\${Package} - \${Version}\n" libsqlite3-mod-spatialite
+
 # update digital-land-python
 pip install -r ./requirements.txt
-
-TODAY=$(date +%Y-%m-%d)
-echo "Running package builder for $DATA_PACKAGE_NAME on $TODAY"
 
 echo Downloading specification
 mkdir -p specification/
