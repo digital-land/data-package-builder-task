@@ -86,5 +86,5 @@ ls -l $DATASET_DIR || true
 # TODO where to permenantly store data packages, also this uploads all the filels in datasets 
 if [ -n "$WRITE_S3_BUCKET" ]; then
     echo Pushing package to S3 bucket $WRITE_S3_BUCKET
-    aws s3 sync $DATASET_DIR s3://$WRITE_S3_BUCKET/$DATA_PACKAGE_NAME/$DATASET_DIR --no-progress
+    aws s3 sync $DATASET_DIR s3://$WRITE_S3_BUCKET/$COLLECTION_NAME/$DATASET_DIR --no-progress
 fi
