@@ -21,22 +21,22 @@ jobs:
       - run: make init
       - run: make lint
 
-  # test:
-  #   runs-on: ubuntu-latest
-  #   steps:
-  #     - uses: actions/checkout@v4
-  #       with:
-  #         fetch-depth: 0
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
 
-  #     - uses: actions/setup-python@v4
-  #       with:
-  #         python-version: 3.8
+      - uses: actions/setup-python@v4
+        with:
+          python-version: 3.8
 
-  #     - run: make init
+      - run: make init
 
-  #     - name: run tests
-  #       run: |
-  #         make test
+      - name: run tests
+        run: |
+          make test
 
 
   detect-environments:
@@ -61,7 +61,7 @@ jobs:
     runs-on: ubuntu-latest
     env:
       DOCKER_REPO: ${{ secrets.DEPLOY_DOCKER_REPOSITORY }}
-    needs: [detect-environments]
+    needs: [detect-environments, test]
     strategy:
       matrix:
         environment: ${{ fromJSON(needs.detect-environments.outputs.environments) }}

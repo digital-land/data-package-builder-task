@@ -2,8 +2,6 @@
 
 set -e
 
-exit 1
-
 TODAY=$(date +%Y-%m-%d)
 echo "Running package builder for $DATA_PACKAGE_NAME on $TODAY"
 
