@@ -36,6 +36,7 @@ dpkg-query -W -f="\${Package} - \${Version}\n" libsqlite3-mod-spatialite
 # update digital-land-python
 pip install -r ./requirements.txt
 
+# We should be importing the makerules repo and using that to download specification
 echo Downloading specification
 mkdir -p specification/
 curl -qfsL $SOURCE_URL/specification/main/specification/attribution.csv > specification/attribution.csv
@@ -49,6 +50,7 @@ curl -qfsL $SOURCE_URL/specification/main/specification/field.csv > specificatio
 curl -qfsL $SOURCE_URL/specification/main/specification/datatype.csv > specification/datatype.csv
 curl -qfsL $SOURCE_URL/specification/main/specification/prefix.csv > specification/prefix.csv
 # deprecated ..
+curl -qfsL $SOURCE_URL/specification/main/specification/provision-rule.csv > specification/provision-rule.csv
 curl -qfsL $SOURCE_URL/specification/main/specification/pipeline.csv > specification/pipeline.csv
 curl -qfsL $SOURCE_URL/specification/main/specification/dataset-schema.csv > specification/dataset-schema.csv
 curl -qfsL $SOURCE_URL/specification/main/specification/schema.csv > specification/schema.csv
