@@ -70,12 +70,14 @@ if [ -n "$READ_S3_BUCKET" ]; then
     aws s3 sync s3://$READ_S3_BUCKET/$COLLECTION_NAME/$DATASET_DIR $COLLECTION_DATASET_DIR --no-progress
     digital-land organisation-create \
         --dataset-dir $COLLECTION_DATASET_DIR \
+        --environment "$ENVIRONMENT" \
         --output-path $DATASET_DIR/organisation.csv
 else
     echo Building organisation data package - using collection files from CDN
     digital-land organisation-create \
         --cache-dir $COLLECTION_DATASET_DIR \
         --download-url 'https://files.planning.data.gov.uk/organisation-collection/dataset' \
+        --environment "$ENVIRONMENT" \
         --output-path $DATASET_DIR/organisation.csv
 fi
 
