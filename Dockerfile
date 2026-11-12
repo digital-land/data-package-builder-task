@@ -4,7 +4,7 @@ FROM python:3.10-slim-bookworm
 WORKDIR /
 RUN apt-get update
 RUN apt-get upgrade -y
-RUN apt-get install -y bats curl git make sqlite3 sudo gdal-bin time libsqlite3-mod-spatialite
+RUN apt-get install -y bats curl git make sqlite3 sudo gdal-bin time libsqlite3-mod-spatialite openssh-client-
 
 RUN useradd --shell /bin/bash --home-dir /task --create-home task
 RUN adduser task sudo
