@@ -35,7 +35,7 @@ this task can be ran either with or without docker the instructions for either a
 
 set up dependencies:
 
-* create a virtual environment for python and activate it
+* create a virtual environment with Python 3.13 and activate it
 * run make init to install local
 * run make run-task
 
