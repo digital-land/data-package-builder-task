@@ -59,6 +59,7 @@
     # gets every organisation dataset
     [ "$status" -eq 0 ]
     grep -q -- "organisation-create .*--environment staging" "$DIGITAL_LAND_ARGS"
+    grep -q -- "organisation-create .*--dataset-environment-path config/pipeline/dataset.csv" "$DIGITAL_LAND_ARGS"
 }
 
 @test "script builds organisation.csv from the flattened datasets in the bucket" {
