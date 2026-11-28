@@ -57,12 +57,26 @@ curl -qfsL $SOURCE_URL/specification/main/specification/schema.csv > specificati
 curl -qfsL $SOURCE_URL/specification/main/specification/schema-field.csv > specification/schema-field.csv
 curl -qfsL $SOURCE_URL/specification/main/specification/datapackage.csv > specification/datapackage.csv
 curl -qfsL $SOURCE_URL/specification/main/specification/datapackage-dataset.csv > specification/datapackage-dataset.csv
+# config
+mkdir -p config/pipeline/
+curl -qfsL $SOURCE_URL/config/main/pipeline/dataset.csv > config/pipeline/dataset.csv
 
 echo Building data package
 mkdir -p $CACHE_DIR
 
 export COLLECTION_NAME=$DATA_PACKAGE_NAME-collection
 export FLATTENED_DIR=$CACHE_DIR/flattened/
+
+ORGANISATION_DATASETS=$(python - <<EOF
+import csv
+from digital_land.package.organisation import organisation_datasets
+rows = list(csv.DictReader(open("specification/dataset.csv")))
+environments = {r["dataset"]: r["environment"] for r in csv.DictReader(open("config/pipeline/dataset.csv"))}
+for row in rows:
+    row["environment"] = environments.get(row["dataset"], "")
+print(" ".join(organisation_datasets(rows, "$ENVIRONMENT")))
+EOF
+)
 
 # the organisation datasets built in this environment, using the same rules organisation-create applies
 ORGANISATION_DATASETS=$(python -c "import csv; from digital_land.package.organisation import organisation_datasets; print(' '.join(organisation_datasets(csv.DictReader(open('specification/dataset.csv')), '$ENVIRONMENT')))")
@@ -80,6 +94,7 @@ echo Building organisation data package from the flattened datasets: $ORGANISATI
 digital-land organisation-create \
     --flattened-dir $FLATTENED_DIR \
     --environment "$ENVIRONMENT" \
+    --dataset-environment-path config/pipeline/dataset.csv \
     --output-path $DATASET_DIR/organisation.csv
 
 echo Checking data package
